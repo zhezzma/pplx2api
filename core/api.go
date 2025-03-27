@@ -245,7 +245,10 @@ func (c *Client) SendMessage(message string, stream bool, is_incognito bool, gc 
 		Post("https://www.perplexity.ai/rest/sse/perplexity_ask")
 
 	if err != nil {
-		resp.Body.Close()
+		if resp != nil && resp.Body != nil {
+			resp.Body.Close()
+		}
+		logger.Error(fmt.Sprintf("Error sending request: %v", err))
 		return 500, fmt.Errorf("request failed: %w", err)
 	}
 
