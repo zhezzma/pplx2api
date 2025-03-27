@@ -48,7 +48,7 @@ pplx2api 对外提供OpenAi 兼容接口，支持识图，思考，搜索，文�
    -e MAX_CHAT_HISTORY_LENGTH=10000 \
    -e NO_ROLE_PREFIX=false \
    -e SEARCH_RESULT_COMPATIBLE=false \
-   --name claude2api \
+   --name pplx2api \
    ghcr.io/yushangxiao/pplx2api:latest
  ```
  
@@ -57,7 +57,7 @@ pplx2api 对外提供OpenAi 兼容接口，支持识图，思考，搜索，文�
  ```yaml
  version: '3'
  services:
-   claude2api:
+   pplx2api:
      image: ghcr.io/yushangxiao/pplx2api:latest
      container_name: pplx
      ports:
