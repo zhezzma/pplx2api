@@ -34,9 +34,29 @@ pplx2api 对外提供OpenAi 兼容接口，支持识图，思考，搜索，文�
 
 ## ✨ 关于环境变量SESSIONS
   为https://www.perplexity.ai/ 官网cookie中 __Secure-next-auth.session-token 的值
+  
   环境变量SESSIONS可以设置多个账户轮询或重试，使用英文逗号分割即可
 
+ ## 当前支持模型
+ claude-3.7-sonnet
  
+claude-3.7-sonnet-think
+
+deepseek-r1
+
+gpt-4.5
+
+o3-mini
+
+gpt-4o
+
+gemini-2.0-flash
+
+grok-2
+
+……
+
+（以及对应模型的-search版本）
  ## 🚀 部署选项
  ### Docker
  ```bash
