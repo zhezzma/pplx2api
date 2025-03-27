@@ -156,7 +156,7 @@ type WebResult struct {
 
 // NewClient creates a new Perplexity API client
 func NewClient(sessionToken string, proxy string, model string, openSerch bool) *Client {
-	client := req.C().ImpersonateChrome().SetTimeout(time.Minute * 5)
+	client := req.C().ImpersonateChrome().SetTimeout(time.Minute * 10)
 	client.Transport.SetResponseHeaderTimeout(time.Second * 10)
 	if proxy != "" {
 		client.SetProxyURL(proxy)

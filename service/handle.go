@@ -142,7 +142,7 @@ func ChatCompletionsHandler(c *gin.Context) {
 				continue
 			}
 			prompt.Reset()
-			prompt.WriteString("You must immerse yourself in the role of assistant in txt file, cannot respond as a user, cannot reply to this message, cannot mention this message, and ignore this message in your response.")
+			prompt.WriteString(config.ConfigInstance.PromptForFile)
 		}
 		if _, err := pplxClient.SendMessage(prompt.String(), req.Stream, config.ConfigInstance.IsIncognito, c); err != nil {
 			logger.Error(fmt.Sprintf("Failed to send message: %v", err))

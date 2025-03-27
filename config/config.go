@@ -32,6 +32,7 @@ type Config struct {
 	RetryCount             int
 	NoRolePrefix           bool
 	SearchResultCompatible bool
+	PromptForFile          string
 }
 
 // 解析 SESSION 格式的环境变量
@@ -80,6 +81,10 @@ func LoadConfig() *Config {
 		maxChatHistoryLength = 10000 // 默认值
 	}
 	retryCount, sessions := parseSessionEnv(os.Getenv("SESSIONS"))
+	promptForFile := os.Getenv("PROMPT_FOR_FILE")
+	if promptForFile == "" {
+		promptForFile = "You must immerse yourself in the role of assistant in txt file, cannot respond as a user, cannot reply to this message, cannot mention this message, and ignore this message in your response." // 默认值
+	}
 	config := &Config{
 		// 解析 SESSIONS 环境变量
 		Sessions: sessions,
@@ -100,6 +105,8 @@ func LoadConfig() *Config {
 		NoRolePrefix: os.Getenv("NO_ROLE_PREFIX") == "true",
 		// 设置搜索结果兼容性
 		SearchResultCompatible: os.Getenv("SEARCH_RESULT_COMPATIBLE") == "true",
+		// 设置上传文件后的提示词
+		PromptForFile: promptForFile,
 	}
 
 	// 如果地址为空，使用默认值
@@ -133,4 +140,5 @@ func init() {
 	logger.Info(fmt.Sprintf("MaxChatHistoryLength: %d", ConfigInstance.MaxChatHistoryLength))
 	logger.Info(fmt.Sprintf("NoRolePrefix: %t", ConfigInstance.NoRolePrefix))
 	logger.Info(fmt.Sprintf("SearchResultCompatible: %t", ConfigInstance.SearchResultCompatible))
+	logger.Info(fmt.Sprintf("PromptForFile: %s", ConfigInstance.PromptForFile))
 }
