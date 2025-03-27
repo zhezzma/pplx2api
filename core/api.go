@@ -287,6 +287,7 @@ func (c *Client) HandleResponse(body io.ReadCloser, stream bool, gc *gin.Context
 	responseID := uuid.New().String()
 	createdTime := time.Now().Unix()
 	inThinking := false
+	thinkShown := false
 	final := false
 	for scanner.Scan() {
 		line := scanner.Text()
@@ -395,10 +396,11 @@ func (c *Client) HandleResponse(body io.ReadCloser, stream bool, gc *gin.Context
 			// Handle reasoning plan blocks (thinking)
 			if block.ReasoningPlanBlock != nil && len(block.ReasoningPlanBlock.Goals) > 0 {
 				res_text := ""
-				if !inThinking {
+				if !inThinking && !thinkShown {
 					res_text += "<think>"
+					inThinking = true
 				}
-				inThinking = true
+
 				for _, goal := range block.ReasoningPlanBlock.Goals {
 					if goal.Description != "" && goal.Description != "Beginning analysis" && goal.Description != "Wrapping up analysis" {
 						res_text += goal.Description
@@ -443,6 +445,7 @@ func (c *Client) HandleResponse(body io.ReadCloser, stream bool, gc *gin.Context
 				if inThinking {
 					res_text += "</think>\n"
 					inThinking = false
+					thinkShown = true
 				}
 				for _, chunk := range block.MarkdownBlock.Chunks {
 					if chunk != "" {
