@@ -129,7 +129,7 @@ func ChatCompletionsHandler(c *gin.Context) {
 			if err != nil {
 				logger.Error(fmt.Sprintf("Failed to upload file: %v", err))
 				logger.Info("Retrying another session")
-				pplxClient = nil
+
 				continue
 			}
 		}
@@ -138,7 +138,7 @@ func ChatCompletionsHandler(c *gin.Context) {
 			if err != nil {
 				logger.Error(fmt.Sprintf("Failed to upload text: %v", err))
 				logger.Info("Retrying another session")
-				pplxClient = nil
+
 				continue
 			}
 			prompt.Reset()
@@ -147,10 +147,10 @@ func ChatCompletionsHandler(c *gin.Context) {
 		if _, err := pplxClient.SendMessage(prompt.String(), req.Stream, config.ConfigInstance.IsIncognito, c); err != nil {
 			logger.Error(fmt.Sprintf("Failed to send message: %v", err))
 			logger.Info("Retrying another session")
-			pplxClient = nil
+
 			continue // Retry on error
 		}
-		pplxClient = nil
+
 		return
 
 	}

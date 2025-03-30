@@ -33,6 +33,7 @@ type Config struct {
 	NoRolePrefix           bool
 	SearchResultCompatible bool
 	PromptForFile          string
+	RwMutex                sync.RWMutex
 }
 
 // 解析 SESSION 格式的环境变量
@@ -55,6 +56,8 @@ func parseSessionEnv(envValue string) (int, []SessionInfo) {
 
 // 根据模型选择合适的 session
 func (c *Config) GetSessionForModel(model string) (SessionInfo, error) {
+	c.RwMutex.RLock()
+	defer c.RwMutex.RUnlock()
 	allSessions := c.Sessions
 
 	// 如果没有可用的 session，返回空
@@ -107,6 +110,8 @@ func LoadConfig() *Config {
 		SearchResultCompatible: os.Getenv("SEARCH_RESULT_COMPATIBLE") == "true",
 		// 设置上传文件后的提示词
 		PromptForFile: promptForFile,
+		// 读写锁
+		RwMutex: sync.RWMutex{},
 	}
 
 	// 如果地址为空，使用默认值

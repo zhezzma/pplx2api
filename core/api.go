@@ -738,3 +738,21 @@ func (c *Client) UploadText(context string) error {
 
 	return nil
 }
+
+func (c *Client) GetNewCookie() (string, error) {
+	resp, err := c.client.R().Get("https://www.perplexity.ai/api/auth/session")
+	if err != nil {
+		logger.Error(fmt.Sprintf("Error getting session cookie: %v", err))
+		return "", err
+	}
+	if resp.StatusCode != http.StatusOK {
+		logger.Error(fmt.Sprintf("Error getting session cookie: %s", resp.String()))
+		return "", fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+	}
+	for _, cookie := range resp.Cookies() {
+		if cookie.Name == "__Secure-next-auth.session-token" {
+			return cookie.Value, nil
+		}
+	}
+	return "", fmt.Errorf("session cookie not found")
+}
