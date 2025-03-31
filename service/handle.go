@@ -114,8 +114,10 @@ func ChatCompletionsHandler(c *gin.Context) {
 	fmt.Println("img_data_list_length:", len(img_data_list)) // 输出图片数据列表长度
 	// 切号重试机制
 	var pplxClient *core.Client
+	index := config.Sr.NextIndex()
 	for i := 0; i < config.ConfigInstance.RetryCount; i++ {
-		session, err := config.ConfigInstance.GetSessionForModel(model)
+		index = (index + 1) % len(config.ConfigInstance.Sessions)
+		session, err := config.ConfigInstance.GetSessionForModel(index)
 		logger.Info(fmt.Sprintf("Using session for model %s: %s", model, session.SessionKey))
 		if err != nil {
 			logger.Error(fmt.Sprintf("Failed to get session for model %s: %v", model, err))
