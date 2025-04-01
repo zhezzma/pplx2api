@@ -281,6 +281,7 @@ func (c *Client) HandleResponse(body io.ReadCloser, stream bool, gc *gin.Context
 	}
 
 	scanner := bufio.NewScanner(body)
+	clientDone := gc.Request.Context().Done()
 	// 增大缓冲区大小
 	scanner.Buffer(make([]byte, 1024*1024), 1024*1024)
 	full_text := ""
@@ -290,6 +291,13 @@ func (c *Client) HandleResponse(body io.ReadCloser, stream bool, gc *gin.Context
 	thinkShown := false
 	final := false
 	for scanner.Scan() {
+		select {
+		case <-clientDone:
+			logger.Info("Client connection closed")
+			return nil
+		default:
+		}
+
 		line := scanner.Text()
 		// Skip empty lines
 		if line == "" {
