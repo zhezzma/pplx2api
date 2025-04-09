@@ -8,7 +8,7 @@ var ModelMap = map[string]string{
 	"gpt-4.5":                 "gpt45",
 	"o3-mini":                 "o3mini",
 	"gpt-4o":                  "gpt4o",
-	"gemini-2.0-flash":        "gemini2flash",
+	"gemini-2.5-pro":          "gemini2flash",
 	"grok-2":                  "grok",
 }
 
