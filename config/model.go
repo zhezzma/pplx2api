@@ -10,6 +10,7 @@ var ModelMap = map[string]string{
 	"gpt-4o":                  "gpt4o",
 	"gemini-2.5-pro":          "gemini2flash",
 	"grok-2":                  "grok",
+	"gpt-4.1":                 "gpt41",
 }
 
 // Get returns the value for the given key from the ModelMap.
