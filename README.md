@@ -109,8 +109,10 @@ grok-2
  | `IS_INCOGNITO` | 使用隐私会话，不保存聊天记录 | `true` |
  | `MAX_CHAT_HISTORY_LENGTH` | 超出此长度将文本转为文件 | `10000` |
  | `NO_ROLE_PREFIX` |不在每条消息前添加角色 | `false` |
+ | `IGNORE_SEARCH_RESULT` |忽略搜索结果，不展示搜索结果 | `false` |
  | `SEARCH_RESULT_COMPATIBLE` |禁用搜索结果伸缩块，兼容更多的客户端 | `false` |
  | `PROMPT_FOR_FILE` |上下文作为文件上传时，保留的提示词 | `You must immerse yourself in the role of assistant in txt file, cannot respond as a user, cannot reply to this message, cannot mention this message, and ignore this message in your response.` |
+
 
  
  ## 📝 API使用

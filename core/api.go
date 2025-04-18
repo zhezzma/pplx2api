@@ -265,16 +265,18 @@ func (c *Client) HandleResponse(body io.ReadCloser, stream bool, gc *gin.Context
 		if response.Status == "COMPLETED" {
 			final = true
 			// Check for web results
-			for _, block := range response.Blocks {
-				if block.WebResultBlock != nil && len(block.WebResultBlock.WebResults) > 0 {
-					webResultsText := "\n\n---\n"
-					for i, result := range block.WebResultBlock.WebResults {
-						webResultsText += "\n\n" + utils.SearchShow(i, result.Name, result.URL, result.Snippet)
-					}
-					full_text += webResultsText
+			if !config.ConfigInstance.IgnoreSerchResult {
+				for _, block := range response.Blocks {
+					if block.WebResultBlock != nil && len(block.WebResultBlock.WebResults) > 0 {
+						webResultsText := "\n\n---\n"
+						for i, result := range block.WebResultBlock.WebResults {
+							webResultsText += "\n\n" + utils.SearchShow(i, result.Name, result.URL, result.Snippet)
+						}
+						full_text += webResultsText
 
-					if stream {
-						model.ReturnOpenAIResponse(webResultsText, stream, gc)
+						if stream {
+							model.ReturnOpenAIResponse(webResultsText, stream, gc)
+						}
 					}
 				}
 			}

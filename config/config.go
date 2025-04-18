@@ -34,6 +34,7 @@ type Config struct {
 	SearchResultCompatible bool
 	PromptForFile          string
 	RwMutex                sync.RWMutex
+	IgnoreSerchResult      bool
 }
 
 // 解析 SESSION 格式的环境变量
@@ -101,6 +102,8 @@ func LoadConfig() *Config {
 		SearchResultCompatible: os.Getenv("SEARCH_RESULT_COMPATIBLE") == "true",
 		// 设置上传文件后的提示词
 		PromptForFile: promptForFile,
+		// 设置是否忽略搜索结果
+		IgnoreSerchResult: os.Getenv("IGNORE_SEARCH_RESULT") == "true",
 		// 读写锁
 		RwMutex: sync.RWMutex{},
 	}
@@ -145,4 +148,5 @@ func init() {
 	logger.Info(fmt.Sprintf("NoRolePrefix: %t", ConfigInstance.NoRolePrefix))
 	logger.Info(fmt.Sprintf("SearchResultCompatible: %t", ConfigInstance.SearchResultCompatible))
 	logger.Info(fmt.Sprintf("PromptForFile: %s", ConfigInstance.PromptForFile))
+	logger.Info(fmt.Sprintf("IgnoreSerchResult: %t", ConfigInstance.IgnoreSerchResult))
 }
