@@ -7,6 +7,7 @@ var ModelMap = map[string]string{
 	"deepseek-r1":             "r1",
 	"gpt-4.5":                 "gpt45",
 	"o3-mini":                 "o3mini",
+	"o4-mini":                 "o4mini",
 	"gpt-4o":                  "gpt4o",
 	"gemini-2.5-pro":          "gemini2flash",
 	"grok-3-beta":             "grok",
