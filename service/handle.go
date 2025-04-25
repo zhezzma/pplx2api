@@ -35,10 +35,6 @@ func ChatCompletionsHandler(c *gin.Context) {
 
 	// Parse request body
 	var req ChatCompletionRequest
-	defaultStream := true
-	req = ChatCompletionRequest{
-		Stream: defaultStream,
-	}
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, ErrorResponse{
 			Error: fmt.Sprintf("Invalid request: %v", err),
