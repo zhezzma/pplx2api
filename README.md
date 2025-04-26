@@ -6,15 +6,6 @@
 
 pplx2api 对外提供OpenAi 兼容接口，支持识图，思考，搜索，文件上传，账户轮询，重试，模型监控……
 
-<div align="center">  
-  <h1>使用条件</h1>  
-  <p><strong>要求家庭宽带或者优质IP</strong></p>  
-  <p>连接优质网络，开启浏览器隐私模式，访问 https://www.perplexity.ai/rest/sse/perplexity_ask</p>  
-  <p>如果遇到cloudflare 的人机验证，则网络暂不支持使用本项目</p>  
-  <p>PS : 不要使用服务器直接curl ，这并不能检验网络条件是否可用</p>  
-  <hr>  
-</div> 
-
 
 
 ## ✨ 特性
@@ -29,7 +20,7 @@ pplx2api 对外提供OpenAi 兼容接口，支持识图，思考，搜索，文�
 - 🔍 **搜索模式**- 访问 -search 结尾的模型，连接网络且返回搜索内容
 - 📊 **模型监控** - 跟踪响应的实际模型，如果模型不一致会返回实际使用的模型
 - 🔄 **自动刷新** 每天自动刷新cookie，持续可用
-- 🖼️ **绘图模型** - 在搜索模式，支持模型绘图
+- 🖼️ **绘图模型** - 在搜索模式，支持模型绘图，文生图，图生图
  ## 📋 前提条件
  - Go 1.23+（从源代码构建）
  - Docker（用于容器化部署）
@@ -60,6 +51,12 @@ grok-2
 
 （以及对应模型的-search版本）
  ## 🚀 部署选项
+ 
+ ### HuggingFace Space
+
+ https://huggingface.co/spaces/rclon/pplx2api
+ 复刻填写环境变量即可自动部署
+ 
  ### Docker
  ```bash
  docker run -d \
