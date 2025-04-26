@@ -276,7 +276,6 @@ func (c *Client) HandleResponse(body io.ReadCloser, stream bool, gc *gin.Context
 		// Check for completion and web results
 		if response.Status == "COMPLETED" {
 			final = true
-			// Check for web results
 			for _, block := range response.Blocks {
 				if block.ImageModeBlock != nil && block.ImageModeBlock.Progress == "DONE" && len(block.ImageModeBlock.MediaItems) > 0 {
 					imageResultsText := ""
@@ -295,6 +294,8 @@ func (c *Client) HandleResponse(body io.ReadCloser, stream bool, gc *gin.Context
 						model.ReturnOpenAIResponse(imageResultsText, stream, gc)
 					}
 				}
+			}
+			for _, block := range response.Blocks {
 				if !config.ConfigInstance.IgnoreSerchResult && block.WebResultBlock != nil && len(block.WebResultBlock.WebResults) > 0 {
 					webResultsText := "\n\n---\n"
 					for i, result := range block.WebResultBlock.WebResults {
