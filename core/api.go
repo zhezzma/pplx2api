@@ -278,17 +278,6 @@ func (c *Client) HandleResponse(body io.ReadCloser, stream bool, gc *gin.Context
 			final = true
 			// Check for web results
 			for _, block := range response.Blocks {
-				if !config.ConfigInstance.IgnoreSerchResult && block.WebResultBlock != nil && len(block.WebResultBlock.WebResults) > 0 {
-					webResultsText := "\n\n---\n"
-					for i, result := range block.WebResultBlock.WebResults {
-						webResultsText += "\n\n" + utils.SearchShow(i, result.Name, result.URL, result.Snippet)
-					}
-					full_text += webResultsText
-
-					if stream {
-						model.ReturnOpenAIResponse(webResultsText, stream, gc)
-					}
-				}
 				if block.ImageModeBlock != nil && block.ImageModeBlock.Progress == "DONE" && len(block.ImageModeBlock.MediaItems) > 0 {
 					imageResultsText := ""
 					imageModelList := []string{}
@@ -306,6 +295,18 @@ func (c *Client) HandleResponse(body io.ReadCloser, stream bool, gc *gin.Context
 						model.ReturnOpenAIResponse(imageResultsText, stream, gc)
 					}
 				}
+				if !config.ConfigInstance.IgnoreSerchResult && block.WebResultBlock != nil && len(block.WebResultBlock.WebResults) > 0 {
+					webResultsText := "\n\n---\n"
+					for i, result := range block.WebResultBlock.WebResults {
+						webResultsText += "\n\n" + utils.SearchShow(i, result.Name, result.URL, result.Snippet)
+					}
+					full_text += webResultsText
+
+					if stream {
+						model.ReturnOpenAIResponse(webResultsText, stream, gc)
+					}
+				}
+
 			}
 
 			if response.DisplayModel != c.Model {
