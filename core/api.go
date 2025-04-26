@@ -75,6 +75,7 @@ type Block struct {
 	MarkdownBlock      *MarkdownBlock      `json:"markdown_block,omitempty"`
 	ReasoningPlanBlock *ReasoningPlanBlock `json:"reasoning_plan_block,omitempty"`
 	WebResultBlock     *WebResultBlock     `json:"web_result_block,omitempty"`
+	ImageModeBlock     *ImageModeBlock     `json:"image_mode_block,omitempty"`
 }
 
 type MarkdownBlock struct {
@@ -97,6 +98,19 @@ type WebResult struct {
 	Name    string `json:"name"`
 	Snippet string `json:"snippet"`
 	URL     string `json:"url"`
+}
+
+type ImageModeBlock struct {
+	AnswerModeType string `json:"answer_mode_type"`
+	Progress       string `json:"progress"`
+	MediaItems     []struct {
+		Medium    string `json:"medium"`
+		Image     string `json:"image"`
+		URL       string `json:"url"`
+		Name      string `json:"name"`
+		Source    string `json:"source"`
+		Thumbnail string `json:"thumbnail"`
+	} `json:"media_items"`
 }
 
 // NewClient creates a new Perplexity API client
@@ -265,21 +279,37 @@ func (c *Client) HandleResponse(body io.ReadCloser, stream bool, gc *gin.Context
 		if response.Status == "COMPLETED" {
 			final = true
 			// Check for web results
-			if !config.ConfigInstance.IgnoreSerchResult {
-				for _, block := range response.Blocks {
-					if block.WebResultBlock != nil && len(block.WebResultBlock.WebResults) > 0 {
-						webResultsText := "\n\n---\n"
-						for i, result := range block.WebResultBlock.WebResults {
-							webResultsText += "\n\n" + utils.SearchShow(i, result.Name, result.URL, result.Snippet)
-						}
-						full_text += webResultsText
+			for _, block := range response.Blocks {
+				if !config.ConfigInstance.IgnoreSerchResult && block.WebResultBlock != nil && len(block.WebResultBlock.WebResults) > 0 {
+					webResultsText := "\n\n---\n"
+					for i, result := range block.WebResultBlock.WebResults {
+						webResultsText += "\n\n" + utils.SearchShow(i, result.Name, result.URL, result.Snippet)
+					}
+					full_text += webResultsText
 
-						if stream {
-							model.ReturnOpenAIResponse(webResultsText, stream, gc)
-						}
+					if stream {
+						model.ReturnOpenAIResponse(webResultsText, stream, gc)
+					}
+				}
+				if block.ImageModeBlock != nil && block.ImageModeBlock.Progress == "DONE" && len(block.ImageModeBlock.MediaItems) > 0 {
+					imageResultsText := ""
+					imageModelList := []string{}
+					for i, result := range block.ImageModeBlock.MediaItems {
+						imageResultsText += utils.ImageShow(i, result.Name, result.Image)
+						imageModelList = append(imageModelList, result.Name)
+
+					}
+					if len(imageModelList) > 0 {
+						imageResultsText = imageResultsText + "\n\n---\n" + strings.Join(imageModelList, ", ")
+					}
+					full_text += imageResultsText
+
+					if stream {
+						model.ReturnOpenAIResponse(imageResultsText, stream, gc)
 					}
 				}
 			}
+
 			if response.DisplayModel != c.Model {
 				res_text := "\n\n---\n"
 				res_text += fmt.Sprintf("Display Model: %s\n", config.ModelReverseMapGet(response.DisplayModel, response.DisplayModel))
