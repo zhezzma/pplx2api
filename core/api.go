@@ -53,7 +53,6 @@ type PerplexityParams struct {
 	FrontendContextUUID      string        `json:"frontend_context_uuid"`
 	PromptSource             string        `json:"prompt_source"`
 	QuerySource              string        `json:"query_source"`
-	LocalSearchEnabled       bool          `json:"local_search_enabled"`
 	BrowserHistorySummary    []interface{} `json:"browser_history_summary"`
 	IsIncognito              bool          `json:"is_incognito"`
 	UseSchematizedAPI        bool          `json:"use_schematized_api"`
@@ -178,7 +177,6 @@ func (c *Client) SendMessage(message string, stream bool, is_incognito bool, gc 
 			FrontendContextUUID:     uuid.New().String(),
 			PromptSource:            "user",
 			QuerySource:             "home",
-			LocalSearchEnabled:      true,
 			BrowserHistorySummary:   []interface{}{},
 			IsIncognito:             is_incognito,
 			UseSchematizedAPI:       true,
@@ -484,6 +482,7 @@ func (c *Client) UloadFileToCloudinary(uploadInfo CloudinaryUploadInfo, contentT
 			"api_key":         uploadInfo.APIKey,
 			"cloud_name":      uploadInfo.CloudName,
 			"signature":       uploadInfo.Signature,
+			"type":            "private",
 		}
 	} else {
 		formFields = map[string]string{
@@ -554,7 +553,9 @@ func (c *Client) UloadFileToCloudinary(uploadInfo CloudinaryUploadInfo, contentT
 		if err := json.Unmarshal(resp.Bytes(), &uploadResponse); err != nil {
 			return err
 		}
-		c.Attachments = append(c.Attachments, uploadResponse["secure_url"].(string))
+		imgUrl := uploadResponse["secure_url"].(string)
+		imgUrl = "https://pplx-res.cloudinary.com/image/private" + imgUrl[strings.Index(imgUrl, "/user_uploads"):]
+		c.Attachments = append(c.Attachments, imgUrl)
 	} else {
 		c.Attachments = append(c.Attachments, "https://ppl-ai-file-upload.s3.amazonaws.com/"+uploadInfo.Key)
 	}
