@@ -177,7 +177,10 @@ grok-2
  
  ## 🙏 致谢
  - 感谢Go社区提供的优秀生态系统
- 
+
+## ⭐ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=yushangxiao/pplx2api&type=Date)](https://star-history.com/#yushangxiao/pplx2api&Date)  
  ---
  由[yushangxiao](https://github.com/yushangxiao)用❤️制作
 </details
