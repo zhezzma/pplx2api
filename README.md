@@ -50,6 +50,40 @@ grok-2
 ……
 
 （以及对应模型的-search版本）
+
+## 项目效果
+
+ 识图：
+ 
+![image](https://github.com/user-attachments/assets/3bb823e0-4232-4c6c-93cd-76d6c329ede3)
+
+搜索：
+
+![image](https://github.com/user-attachments/assets/26f7b6f7-ef00-499b-be32-c5dbc6e80ea6)
+
+思考：
+
+![image](https://github.com/user-attachments/assets/a075584a-ab49-4bf9-857b-6436b34bd363)
+
+模型检测：
+
+![image](https://github.com/user-attachments/assets/06013dd7-31ff-4bdd-bc5a-746ecaa8e922)
+
+文生图：
+
+![image](https://github.com/user-attachments/assets/bae2fd09-c738-4078-81a3-993c0b805943)
+
+图生图：
+
+![image](https://github.com/user-attachments/assets/f1866af5-5558-4fbb-83d7-b753035628bd)
+
+
+
+
+
+
+
+
  ## 🚀 部署选项
  
  ### HuggingFace Space
@@ -177,6 +211,10 @@ grok-2
  
  ## 🙏 致谢
  - 感谢Go社区提供的优秀生态系统
+
+ ## 🎁 项目支持
+
+如果你觉得这个项目对你有帮助，可以考虑通过 [爱发电](https://afdian.com/a/snaily) 支持我😘
 
 ## ⭐ Star History
 
