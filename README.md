@@ -214,7 +214,7 @@ grok-2
 
  ## 🎁 项目支持
 
-如果你觉得这个项目对你有帮助，可以考虑通过 [爱发电](https://afdian.com/a/snaily) 支持我😘
+如果你觉得这个项目对你有帮助，可以考虑通过 [爱发电](https://afdian.com/a/iscoker) 支持我😘
 
 ## ⭐ Star History
 
