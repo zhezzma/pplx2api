@@ -2,8 +2,8 @@ package config
 
 var ModelReverseMap = map[string]string{}
 var ModelMap = map[string]string{
-	"claude-3.7-sonnet":       "claude2",
-	"claude-3.7-sonnet-think": "claude37sonnetthinking",
+	"claude-4.0-sonnet":       "claude2",
+	"claude-4.0-sonnet-think": "claude37sonnetthinking",
 	"deepseek-r1":             "r1",
 	"gpt-4.5":                 "gpt45",
 	"o3-mini":                 "o3mini",

@@ -446,9 +446,10 @@ func (c *Client) createUploadURL(filename string, contentType string) (*UploadUR
 
 func (c *Client) UploadImage(img_list []string) error {
 	logger.Info(fmt.Sprintf("Uploading %d images to Cloudinary", len(img_list)))
-	filename := utils.RandomString(5) + ".jpg"
+
 	// Upload images to Cloudinary
 	for _, img := range img_list {
+		filename := utils.RandomString(5) + ".jpg"
 		// Create upload URL
 		uploadURLResponse, err := c.createUploadURL(filename, "image/jpeg")
 		if err != nil {
@@ -467,7 +468,9 @@ func (c *Client) UploadImage(img_list []string) error {
 }
 
 func (c *Client) UloadFileToCloudinary(uploadInfo CloudinaryUploadInfo, contentType string, filedata string, filename string) error {
-	logger.Info(fmt.Sprintf("filedata: %s ……", filedata[:50]))
+	if len(filedata) > 100 {
+		logger.Info(fmt.Sprintf("filedata: %s ……", filedata[:50]))
+	}
 	// Add form fields
 	logger.Info(fmt.Sprintf("Uploading file %s to Cloudinary", filename))
 	var formFields map[string]string
