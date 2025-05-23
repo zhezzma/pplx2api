@@ -328,6 +328,7 @@ func (c *Client) HandleResponse(body io.ReadCloser, stream bool, gc *gin.Context
 		for _, block := range response.Blocks {
 			// Handle reasoning plan blocks (thinking)
 			if block.ReasoningPlanBlock != nil && len(block.ReasoningPlanBlock.Goals) > 0 {
+
 				res_text := ""
 				if !inThinking && !thinkShown {
 					res_text += "<think>"
@@ -345,6 +346,8 @@ func (c *Client) HandleResponse(body io.ReadCloser, stream bool, gc *gin.Context
 				}
 				model.ReturnOpenAIResponse(res_text, stream, gc)
 			}
+		}
+		for _, block := range response.Blocks {
 			if block.MarkdownBlock != nil && len(block.MarkdownBlock.Chunks) > 0 {
 				res_text := ""
 				if inThinking {
