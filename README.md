@@ -221,4 +221,7 @@ grok-2
 [![Star History Chart](https://api.star-history.com/svg?repos=yushangxiao/pplx2api&type=Date)](https://star-history.com/#yushangxiao/pplx2api&Date)  
  ---
  由[yushangxiao](https://github.com/yushangxiao)用❤️制作
-</details
+</details>
+
+[![Powered by DartNode](https://dartnode.com/branding/DN-Open-Source-sm.png)](https://dartnode.com "Powered by DartNode - Free VPS for Open Source")
+
