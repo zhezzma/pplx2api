@@ -31,21 +31,21 @@ pplx2api 对外提供OpenAi 兼容接口，支持识图，思考，搜索，文�
   环境变量SESSIONS可以设置多个账户轮询或重试，使用英文逗号分割即可
 
  ## 当前支持模型
- claude-3.7-sonnet
+ claude-4.0-sonnet
  
-claude-3.7-sonnet-think
+claude-4.0-sonnet-think
 
 deepseek-r1
 
-gpt-4.5
-
-o3-mini
+o4-mini
 
 gpt-4o
 
-gemini-2.0-flash
+gpt-4.1
 
-grok-2
+gemini-2.5-pro-06-05
+
+grok-3-beta
 
 ……
 

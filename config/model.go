@@ -5,13 +5,14 @@ var ModelMap = map[string]string{
 	"claude-4.0-sonnet":       "claude2",
 	"claude-4.0-sonnet-think": "claude37sonnetthinking",
 	"deepseek-r1":             "r1",
-	"gpt-4.5":                 "gpt45",
-	"o3-mini":                 "o3mini",
 	"o4-mini":                 "o4mini",
 	"gpt-4o":                  "gpt4o",
-	"gemini-2.5-pro":          "gemini2flash",
+	"gemini-2.5-pro-06-05":    "gemini2flash",
 	"grok-3-beta":             "grok",
 	"gpt-4.1":                 "gpt41",
+	// "claude-4.0-opus":         "claude40opus",
+	// "claude-4.0-opus-think":   "claude40opusthinking",
+	// "o3":                      "o3",
 }
 
 // Get returns the value for the given key from the ModelMap.
