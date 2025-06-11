@@ -12,7 +12,7 @@ var ModelMap = map[string]string{
 	"gpt-4.1":                 "gpt41",
 	// "claude-4.0-opus":         "claude40opus",
 	// "claude-4.0-opus-think":   "claude40opusthinking",
-	// "o3":                      "o3",
+	"o3": "o3",
 }
 
 // Get returns the value for the given key from the ModelMap.
