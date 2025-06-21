@@ -223,5 +223,3 @@ grok-3-beta
  由[yushangxiao](https://github.com/yushangxiao)用❤️制作
 </details>
 
-[![Powered by DartNode](https://dartnode.com/branding/DN-Open-Source-sm.png)](https://dartnode.com "Powered by DartNode - Free VPS for Open Source")
-
