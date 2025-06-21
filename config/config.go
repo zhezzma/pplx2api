@@ -35,6 +35,7 @@ type Config struct {
 	PromptForFile          string
 	RwMutex                sync.RWMutex
 	IgnoreSerchResult      bool
+	IgnoreModelMonitoring  bool
 }
 
 // 解析 SESSION 格式的环境变量
@@ -104,6 +105,8 @@ func LoadConfig() *Config {
 		PromptForFile: promptForFile,
 		// 设置是否忽略搜索结果
 		IgnoreSerchResult: os.Getenv("IGNORE_SEARCH_RESULT") == "true",
+		//设置是否忽略模型监控
+		IgnoreModelMonitoring: os.Getenv("IGNORE_MODEL_MONITORING") == "true",
 		// 读写锁
 		RwMutex: sync.RWMutex{},
 	}
@@ -149,4 +152,5 @@ func init() {
 	logger.Info(fmt.Sprintf("SearchResultCompatible: %t", ConfigInstance.SearchResultCompatible))
 	logger.Info(fmt.Sprintf("PromptForFile: %s", ConfigInstance.PromptForFile))
 	logger.Info(fmt.Sprintf("IgnoreSerchResult: %t", ConfigInstance.IgnoreSerchResult))
+	logger.Info(fmt.Sprintf("IgnoreModelMonitoring: %t", ConfigInstance.IgnoreModelMonitoring))
 }

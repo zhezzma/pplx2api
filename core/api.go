@@ -310,7 +310,7 @@ func (c *Client) HandleResponse(body io.ReadCloser, stream bool, gc *gin.Context
 
 			}
 
-			if response.DisplayModel != c.Model {
+			if !config.ConfigInstance.IgnoreModelMonitoring && response.DisplayModel != c.Model {
 				res_text := "\n\n---\n"
 				res_text += fmt.Sprintf("Display Model: %s\n", config.ModelReverseMapGet(response.DisplayModel, response.DisplayModel))
 				full_text += res_text
@@ -319,7 +319,6 @@ func (c *Client) HandleResponse(body io.ReadCloser, stream bool, gc *gin.Context
 				}
 				model.ReturnOpenAIResponse(res_text, stream, gc)
 			}
-			break
 		}
 		if final {
 			break
